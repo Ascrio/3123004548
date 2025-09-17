@@ -61,7 +61,8 @@
 
  核心函数DocumentComparator 流程图如下
 
- 
+<img width="2663" height="6533" alt="4e4ac3f0d27a53bf62d2b7fc46da9462" src="https://github.com/user-attachments/assets/c7543c01-3c7c-4f70-8c60-fc16c0baf788" />
+
  算法的关键点在于文本分词以及词袋模型的构建，文本分词为文档转换成词频向量做了铺垫，而词袋模型的构建是文本查重算法实现的基础核心
  
  该算法实现简单，无需复杂的语义分析，适合处理大量文档，且对词序不敏感能够实现检测内容重复而非结构化抄袭，同时不依赖词典库
