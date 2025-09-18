@@ -1,4 +1,6 @@
 # 3123004548软件工程第二次作业
+声明：本算法实现的测试环境为python 3.11
+GitHub链接：https://github.com/Ascrio/3123004548
 <center>
 
 | PSP2 1    | Personal Software Process Stages | 预估耗时（分钟） | 实际耗时（分钟） |
