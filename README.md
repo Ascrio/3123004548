@@ -27,8 +27,6 @@
 采用基于余弦相似度算法的词袋模型，设计了该论文查重功能，并通过DocumentComparator类来封装整个查重算法功能，并采用面向对象的方式组织代码，确保模块化和可维护性
 
  ## 函数设计以及调用模块展示
- 
-
  ### 核心函数DocumentComparator类包括以下函数
 
  1._ init _():初始化jieba分词器
@@ -42,7 +40,6 @@
  5.execute_comparison(): 执行完整的比较流程
 
  ### 辅助函数primary_function()则负责处理命令行参数和程序流程
-
  ### 各函数之间调用模块关系如下
 
 <img width="5722" height="5824" alt="diagram" src="https://github.com/user-attachments/assets/3fb6d80d-f320-40e4-8548-63a4266eb713" />
@@ -110,8 +107,6 @@
         similarity = self.comparator.compute_document_similarity(processed1, processed2)
         self.assertAlmostEqual(similarity, 1.0, delta=0.1)
  ```
-
-
  ## 测试二：对于完全不同的文本，相似度应小于0.4
  
  ``` python
@@ -123,7 +118,6 @@
         similarity = self.comparator.compute_document_similarity(processed1, processed2)
         self.assertLess(similarity, 0.4)
  ```
-
  ## 测试三：对于一个有文本的文件和一个没有文本的文件，相似度应为0
 
  ```python
@@ -140,4 +134,51 @@
         self.assertEqual(similarity, 0.0)
         os.unlink(temp_file1)
         os.unlink(temp_file2)
+ ```
+ 测试结束后，以覆盖率(pycharm自带功能)运行代码，结果如下图所示
+
+ <img width="872" height="100" alt="f7a92ba751826db10221f3e8a3df46c1" src="https://github.com/user-attachments/assets/4d36a7a8-5f96-4679-839b-ed08130d902f" />
+
+ # 模块部分异常处理说明
+
+ ## 异常一：文档读取阶段异常
+ 目标：当用户传入的文档路径无效（如文件不存在、无权限、编码错误等），避免程序因 FileNotFoundError、UnicodeDecodeError等异常而中断
+ 处理方式：使用 try-except捕获所有可能的读取异常，打印具体错误信息，并返回空字符串 ""作为兜底内容
+ ```python
+ def fetch_document_data(self, document_location):
+    try:
+        with open(document_location, 'r', encoding='UTF-8') as file_obj:
+            return file_obj.read()
+    except Exception as error:
+        print(f"文档读取异常 {document_location}: {error}")
+        return ""
+ ```
+ 对应代码测试片段如下
+ ```python
+ class TestDocumentFetcher(unittest.TestCase):
+    def test_fetch_nonexistent_file(self):
+        comparator = DocumentComparator()
+        result = comparator.fetch_document_data("dummy_nonexistent_file_12345.txt")
+        self.assertEqual(result, "")  # 应返回空字符串
+ ```
+ ## 异常二：内容处理阶段异常
+ 目标：对读取到的原始内容进行分词和过滤，但如果传入的内容为空（比如上个阶段读取失败返回了 ""），则直接返回空列表，避免后续处理出错。
+ 处理方式​​：首先判断 content_data是否为空，如果是，则返回空列表 []，而不是继续分词。
+ ```python
+ def process_content(self, content_data):
+    if not content_data:  # 处理空字符串（包括空文件）
+        return []
+    segmented_data = jieba.lcut(content_data)
+    filtered_result = []
+    for segment in segmented_data:
+        if re.match(r"[a-zA-Z0-9\u4e00-\u9fa5]", segment):  # 保留中/英文字符和数字
+            filtered_result.append(segment)
+    return filtered_result
+ ```
+ 对应代码测试片段如下
+ ```python
+ def test_process_empty_content(self):
+    comparator = DocumentComparator()
+    result = comparator.process_content("")
+    self.assertEqual(result, [])  # 空内容应返回空列表
  ```
