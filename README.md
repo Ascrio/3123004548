@@ -1,4 +1,10 @@
 # 3123004548软件工程第二次作业
+
+| 这个作业属于哪个课程 | <[https://edu.cnblogs.com/campus/gdgy/SoftwareEngineering2024](https://edu.cnblogs.com/campus/gdgy/Class34Grade23ComputerScience)> |
+| ----------------- | ---------------- |
+| 这个作业要求在哪里 | <https://edu.cnblogs.com/campus/gdgy/Class34Grade23ComputerScience/homework/13477> |
+| 这个作业的目标 | <设计一个能处理长文本的论文查重算法>   |
+
 声明：本算法实现的测试环境为python 3.11
 
 GitHub链接：https://github.com/Ascrio/3123004548
