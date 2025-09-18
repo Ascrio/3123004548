@@ -85,7 +85,7 @@
 
  可见，函数平均时间耗费有所降低，且函数利用得到有效提升
 
- 同时，对于差异较大的文本，
+ 同时，对于差异较大的文本，该算法能够完全区分并且以此给出较低的相似度
 
  <img width="1014" height="185" alt="image" src="https://github.com/user-attachments/assets/f97e6a30-04ee-4bd2-9e0d-45c8f49001b9" />
 
@@ -95,20 +95,49 @@
 
  为了测试代码稳定性，设计了18处测试代码paperchecker.py，经测试改进代码已全部通过
 
- 
+ <img width="2386" height="1270" alt="image" src="https://github.com/user-attachments/assets/6b74e581-ee79-4f0c-a9a5-644da9d9bab4" />
 
  考虑篇幅限制，此处仅展示3处测试代码
 
  ## 测试一：对于完全相同的文本，相似度应为1
  
  ``` python
-
+ def test_similarity_calculation_identical(self):
+        text1 = "这是一个完全相同的测试文本"
+        text2 = "这是一个完全相同的测试文本"
+        processed1 = self.comparator.process_content(text1)
+        processed2 = self.comparator.process_content(text2)
+        similarity = self.comparator.compute_document_similarity(processed1, processed2)
+        self.assertAlmostEqual(similarity, 1.0, delta=0.1)
  ```
 
 
- ## 测试二：
+ ## 测试二：对于完全不同的文本，相似度应小于0.4
  
  ``` python
-
+ def test_similarity_calculation_different(self):
+        text1 = "这是第一个测试文本，关于人工智能和机器学习"
+        text2 = "恐惧是生物的本能，勇气是人类的赞歌"
+        processed1 = self.comparator.process_content(text1)
+        processed2 = self.comparator.process_content(text2)
+        similarity = self.comparator.compute_document_similarity(processed1, processed2)
+        self.assertLess(similarity, 0.4)
  ```
 
+ ## 测试三：对于一个有文本的文件和一个没有文本的文件，相似度应为0
+
+ ```python
+    def test_one_empty_file_processing(self):
+        content = "这是一个有内容的文件"
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, encoding='utf-8') as f:
+            f.write(content)
+            temp_file1 = f.name
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, encoding='utf-8') as f:
+            temp_file2 = f.name
+        processed1 = self.comparator.process_content(content)
+        processed2 = self.comparator.process_content("")
+        similarity = self.comparator.compute_document_similarity(processed1, processed2)
+        self.assertEqual(similarity, 0.0)
+        os.unlink(temp_file1)
+        os.unlink(temp_file2)
+ ```
