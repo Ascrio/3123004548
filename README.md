@@ -182,3 +182,39 @@
     result = comparator.process_content("")
     self.assertEqual(result, [])  # 空内容应返回空列表
  ```
+
+# 模型改进建议及使用说明
+
+## 模型改进建议
+
+该模型存在以下局限性
+
+1.对于短文本且近义词占比较多的相似文本，算法难以区分其相似度并会给出低于期望的相似度
+
+2.难以区分极少数可能存在前后文关系的亦或是语序关系的文本
+
+基于该局限性，给出如下可能改进方向
+
+1.引入新模型，考虑词汇序列等信息
+
+2.结合语义向量，使用深度学习模型
+
+## 使用说明
+
+### main.py
+
+运行时，用户需往命令行里输入对应格式
+
+ python main.py [原文文件路径] [抄袭版论文的文件路径] [答案文件路径]
+
+ <img width="2458" height="301" alt="image" src="https://github.com/user-attachments/assets/37a478b1-8d26-4f60-b690-33e9dbe5d6c7" />
+
+输入后，函数将输出结果至答案txt文件中
+
+<img width="1488" height="1318" alt="image" src="https://github.com/user-attachments/assets/3b8991d8-8238-45e6-a6a1-b3fb56787b4a" />
+
+### paperchecker.py
+
+运行时，需确保main.py文件存在且包含DocumentComparator类,往命令行输入python paperchecker.py即可运行18种单元测试，并给出对应结果
+
+<img width="2412" height="1304" alt="image" src="https://github.com/user-attachments/assets/ed6e93c3-8ecd-4f3e-8395-6d70cc68c98b" />
