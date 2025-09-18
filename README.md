@@ -56,7 +56,7 @@ GitHub链接：https://github.com/Ascrio/3123004548
 
 <img width="5722" height="5824" alt="diagram" src="https://github.com/user-attachments/assets/3fb6d80d-f320-40e4-8548-63a4266eb713" />
 
- ## 算法设计于与流程展示
+ ## 算法设计与流程展示
 
  1.对指定的文本进行jieba分词器处理，将文本处理成词语序列，同时过滤处理文本中出现的符号
 
