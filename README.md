@@ -1,5 +1,6 @@
 # 3123004548软件工程第二次作业
 声明：本算法实现的测试环境为python 3.11
+
 GitHub链接：https://github.com/Ascrio/3123004548
 <center>
 
@@ -90,6 +91,16 @@ GitHub链接：https://github.com/Ascrio/3123004548
 
  在改进版的算法中，虽然消耗最大的函数依旧为_find_and_load函数，但是函数的平均开销相比前者有所降低，性能得到一定改进
 
+ # 运行结果展示
+
+ 如下展示两个相似文本orig.txt和orig_0.8_add.txt的运行结果
+
+ 将两个文本的路径代入后，输入两个txt文件的路径，显示运行结果图如下
+
+ <img width="2549" height="292" alt="image" src="https://github.com/user-attachments/assets/e9c52fee-401d-433d-b425-625aba9d731f" />
+
+ 显示结果为99.17%，符合结果预期
+ 
  # 模块部分单元测试展示
 
  为了测试代码稳定性，设计了18处测试代码paperchecker.py，经测试改进代码已全部通过
@@ -220,3 +231,4 @@ GitHub链接：https://github.com/Ascrio/3123004548
 运行时，需确保main.py文件存在且包含DocumentComparator类,往命令行输入python paperchecker.py即可运行18种单元测试，并给出对应结果
 
 <img width="2412" height="1304" alt="image" src="https://github.com/user-attachments/assets/ed6e93c3-8ecd-4f3e-8395-6d70cc68c98b" />
+
