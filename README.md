@@ -233,7 +233,7 @@ GitHub链接：https://github.com/Ascrio/3123004548
 
 输入后，函数将输出结果至答案txt文件中
 
-<img width="1488" height="1318" alt="image" src="https://github.com/user-attachments/assets/3b8991d8-8238-45e6-a6a1-b3fb56787b4a" />
+<img width="744" height="659" alt="image" src="https://github.com/user-attachments/assets/3b8991d8-8238-45e6-a6a1-b3fb56787b4a" />
 
 ### paperchecker.py
 
